@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    kotlin("kapt") version "2.0.20"
+
+
 }
 
 android {
@@ -33,6 +37,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        //noinspection DataBindingWithoutKapt
+        dataBinding=true
+    }
 }
 
 dependencies {
@@ -45,4 +53,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // adding room dependency
+    implementation(libs.room)
+    implementation(libs.room.runtime)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+// LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    annotationProcessor(libs.room.compiler)
+    //ksp(libs.room.compiler)
+    ksp(libs.room.compiler)
+    kapt(libs.artifactid)
+
+
 }
